@@ -1,0 +1,30 @@
+name: coa-actions 
+run-name: ${{ github.actor }} is coa deploy to environment
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+env:
+  COA_VERSION: latest # before utilizing this pipeline in production scenarios...
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    #fetch config
+    - run: echo '${{ secrets.COA_CONFIG }}' >> COA_CONFIG
+    # install coalese cli tool
+    - run: npm list | grep "@coalescesoftware/coa@${{env.COA_VERSION }}" || npm install @coalescesoftware/coa@${{ emv.COA_VERSION }} 
+    # print version number
+    - run: npx coa --version
+    # create deployment plan
+    - run: npx coa plan --config COA_CONFIG --out ./coa-plan --debug
+    # deploy plan
+    - run: npx coa deploy --config COA_CONFIG --plan ./coa-plan --debug
+
