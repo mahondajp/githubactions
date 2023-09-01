@@ -20,7 +20,7 @@ jobs:
     #fetch config
     - run: echo '${{ secrets.COA_CONFIG }}' >> COA_CONFIG
     # install coalese cli tool
-    - run: npm list | grep "@coalescesoftware/coa@${{env.COA_VERSION }}" || npm install @coalescesoftware/coa@${{ emv.COA_VERSION }} 
+    - run: npm list | grep "@coalescesoftware/coa@${{env.COA_VERSION }}" || npm install @coalescesoftware/coa@${{ env.COA_VERSION }} 
     # print version number
     - run: npx coa --version
     # create deployment plan
