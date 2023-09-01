@@ -24,7 +24,8 @@ jobs:
     # print version number
     - run: npx coa --version
     # create deployment plan
-    - run: npx coa plan --config COA_CONFIG --out coa-plan/plan --debug
+    # - run: npx coa plan --config COA_CONFIG --out coa-plan/plan --debug
     # deploy plan
-    - run: npx coa deploy --config COA_CONFIG --plan coa-plan/plan --debug
+    # - run: npx coa deploy --config COA_CONFIG --plan coa-plan/plan --debug
+    - run: npx coa refresh --config COA_CONFIG
 
